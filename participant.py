@@ -1,3 +1,5 @@
+import json
+
 #CLASS to define the participants
 class Participant:
 
@@ -49,6 +51,20 @@ class Participant:
         return self.comments
     def getInfoList(self):
         return self.infoList
+    def getAndroidScale(self):
+        return self.androidScale
+    def getIosScale(self):
+        return self.iosScale
+    def getPdfScale(self):
+        return self.pdfScale
+    def getVPubScale(self):
+        return self.pdfScale
+    def getStepsCompletedPdf1Test1(self):
+        return self.pdf1Test1Completed
+    def getStepsCompletedPdf2Test1(self):
+        return self.pdf1Test1Completed
+    def getStepsCompletedPdfTest1(self):
+        return self.pdfTest2Completed
 
 #CLASS to define the group of participants
 class Study:
@@ -81,6 +97,12 @@ class Study:
         return self.displayCategories
 
     def getDisplayParticipants(self):
+        #### TODO: delete this 
+        newList = []
+        for i in range(35):
+            newList.append(str(i))
+        self.selectList = newList
+
         if len(self.displayParticipants) > 0:
             return self.displayParticipants
         for p in self.participants:
@@ -91,6 +113,34 @@ class Study:
                     insertList.append(infoList[i])
             self.displayParticipants.append(insertList)  
         return self.displayParticipants
+
+    def getAndroidUsers(self):
+        c = 0
+        for p in self.participants:
+            if p.getAndroidScale() > p.getIosScale():
+                c += 1
+        return c
+    def getStepsCompletedPdf1Test1(self):
+        data = [0,0,0,0,0]
+
+        for p in self.participants:
+            if p.getStepsCompletedPdf1Test1() == '0':
+                data[0] += 1
+            elif p.getStepsCompletedPdf1Test1() == '1':
+                data[1] += 1
+            elif p.getStepsCompletedPdf1Test1() == '2':
+                data[2] += 1   
+            elif p.getStepsCompletedPdf1Test1() == '3':
+                data[3] += 1
+            elif p.getStepsCompletedPdf1Test1() == '4':
+                data[4] += 1
+        #json_data = json.dumps(data)
+        return data
+
+
+
+
+
 
 
 

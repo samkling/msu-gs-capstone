@@ -8,10 +8,14 @@ from analyzeCsv import Data
 Data = Data()
 Study = Data.getStudy()
 
+def getInfo():
+	info = {'participants': Study.getDisplayParticipants(), 'categories': Study.getDisplayCategories(), 'androidUsers': Study.getAndroidUsers() }
+	info['stepsCompletedPdf1Test1'] = Study.getStepsCompletedPdf1Test1()
+	return info
 
 @route('/')
 def index():
-	info = {'categories': Study.getDisplayCategories(), 'participants': Study.getDisplayParticipants() }
+	info = getInfo()
 	return template("dashboard", info)
 
 # Static Routes
