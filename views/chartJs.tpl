@@ -27,18 +27,6 @@ window.onload = function () {
 	var chartData = [android,iOS];
 	buildPieChart(chartLabels,chartData,"androidOsPieChart");
 
-	// var ctx = document.getElementById("androidOsPieChart");
-	// var myPieChart = new Chart(ctx, {
-	//   type: 'doughnut',
-	//   data: {
-	//     labels: [" Android"," iOS"],
-	//     datasets: [{
-	//       data: [android,iOS],
-	//       backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
-	//     }],
-	//   },
-	// });
-
 	//alert("{{stepsCompletedPdf1Test1}}");
 	var that = this;
 	var aStr = "{{stepsCompletedPdf1Test1}}";

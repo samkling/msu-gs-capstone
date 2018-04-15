@@ -11,12 +11,19 @@ Study = Data.getStudy()
 def getInfo():
 	info = {'participants': Study.getDisplayParticipants(), 'categories': Study.getDisplayCategories(), 'androidUsers': Study.getAndroidUsers() }
 	info['stepsCompletedPdf1Test1'] = Study.getStepsCompletedPdf1Test1()
+	info['show_header_footer'] = False
 	return info
 
 @route('/')
 def index():
 	info = getInfo()
 	return template("dashboard", info)
+@route('/<name>')
+def index(name):
+	info = getInfo()
+	if name != "dashboard":
+		info['show_header_footer'] = True
+	return template(name, info)
 
 # Static Routes
 #USED for our CSS, JS and other assets
