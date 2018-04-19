@@ -44,6 +44,27 @@ class Participant:
         self.seeUsingVPub = pList[32]
         self.preferedApp = pList[33]
         self.comments = pList[34]
+    def getPdfEase(self):
+        return int(self.pdfEasyScale)
+    def getVpubEase(self):
+        return int(self.vPubEasyScale)
+
+    def getPdf1Test1Time(self):
+        return int(self.pdf1Test1Time)
+    def getPdf2Test1Time(self):
+        return int(self.pdf2Test1Time)
+    def getVPub1Time(self):
+        return int(self.vPub1Time)
+    def getVPub2Time(self):
+        return int(self.vPub2Time)
+    def getPdf1Test1Completed(self):
+        return int(self.pdf1Test1Completed)
+    def getPdf2Test1Completed(self):
+        return int(self.pdf2Test1Completed)
+    def getVPub1Completed(self):
+        return int(self.vPub1Completed)
+    def getVPub2Completed(self):
+        return int(self.vPub2Completed)
 
     def getId(self):
         return self.id
@@ -74,12 +95,25 @@ class Study:
         self.participants = []
         self.displayParticipants = []
         self.selectList = ['0','2','6','7','8','9','11','14','17','20','23','26','28','29','30','31','32','33']
+        self.pdfDelta = 0
+        self.vPubDelta = 0
+        self.vPubCompletedTest1 = 0
+        self.pdfCompletedTest1 = 0
+        self.pdfEaseOfUse = [0,0,0,0,0]
+        self.vPubEaseOfUse = [0,0,0,0,0]
 
+    def getPdfEaseOfUse(self):
+        return self.pdfEaseOfUse
+    def getVpubEaseOfUse(self):
+        return self.vPubEaseOfUse
     def addParticipant(self, pList):
         if pList[0].upper() == "ID" and len(self.categories) == 0:
             self.categories = pList
         else:
-            self.participants.append(Participant(pList))
+            p = Participant(pList)
+            self.pdfEaseOfUse[p.getPdfEase()-1] += 1 
+            self.vPubEaseOfUse[p.getVpubEase()-1] += 1 
+            self.participants.append(p)
 
     def getParticipants(self):
         return self.participants
@@ -137,10 +171,80 @@ class Study:
         #json_data = json.dumps(data)
         return data
 
+    def getAverageTimePerTask(self):
+        tasksCompleted = [0,0,0,0]
+        timeForTest = [0,0,0,0]
+        retAvg = [0,0,0,0] 
+
+        for p in self.participants:
+            timeForTest[0] += p.getPdf1Test1Time()
+            timeForTest[1] += p.getPdf2Test1Time()
+            timeForTest[2] += p.getVPub1Time()
+            timeForTest[3] += p.getVPub2Time()
+            tasksCompleted[0] += p.getPdf1Test1Completed()
+            tasksCompleted[1] += p.getPdf2Test1Completed()
+            tasksCompleted[2] += p.getVPub1Completed()
+            tasksCompleted[3] += p.getVPub2Completed()
+        
+        for i in range(4):
+            if tasksCompleted[i] > 0:
+                retAvg[i] = timeForTest[i] // tasksCompleted[i]
+        #print("retAverage",retAvg)
+        self.pdfDelta = retAvg[1]-retAvg[0]
+        self.vPubDelta = retAvg[2]-retAvg[3]
+
+        return retAvg
+
+    def getDeltas(self):
+        return [self.pdfDelta,self.vPubDelta]
+
+    def getTest1Completed(self):
+        return [self.pdfCompletedTest1, self.vPubCompletedTest1]
 
 
+    def getCompletedAll(self):
+        tasksCompleted = [0,0,0,0]
+        timeForTest = [0,0,0,0]
+        retAvg = [0,0,0,0] 
 
+        for p in self.participants:
+            if p.getPdf1Test1Completed() == 4:
+                timeForTest[0] += p.getPdf1Test1Time()
+                tasksCompleted[0] += p.getPdf1Test1Completed()
+                self.pdfCompletedTest1 += 1
+            if p.getPdf2Test1Completed() == 4:
+                timeForTest[1] += p.getPdf2Test1Time()
+                tasksCompleted[1] += p.getPdf2Test1Completed()
+            if p.getVPub1Completed() == 4:
+                timeForTest[2] += p.getVPub1Time()
+                tasksCompleted[2] += p.getVPub1Completed()
+            if p.getVPub2Completed() == 4:
+                timeForTest[3] += p.getVPub2Time()
+                tasksCompleted[3] += p.getVPub2Completed()
+                self.vPubCompletedTest1 += 1
+        for i in range(4):
+            if tasksCompleted[i] > 0:
+                retAvg[i] = timeForTest[i] // tasksCompleted[i]
+        print("pdf/vpub",self.vPubCompletedTest1, self.pdfCompletedTest1)
+        return retAvg
+    def davidVrobin(self):
+        tasksCompleted = [8,8]
+        timeForTest = [0,0]
+        retAvg = [0,0] 
 
+        for p in self.participants:
+            if p.name.strip() == "David":
+                timeForTest[0] += p.getVPub1Time()
+                timeForTest[0] += p.getVPub2Time()
+            if p.name.strip() == "Robin":
+                timeForTest[1] += p.getVPub1Time()
+                timeForTest[1] += p.getVPub2Time()
+        
+        for i in range(2):
+            if tasksCompleted[i] > 0:
+                retAvg[i] = timeForTest[i] / tasksCompleted[i]
+        print("ret",timeForTest)
+        return retAvg
 
 
 

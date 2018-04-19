@@ -12,6 +12,19 @@ def getInfo():
 	info = {'participants': Study.getDisplayParticipants(), 'categories': Study.getDisplayCategories(), 'androidUsers': Study.getAndroidUsers() }
 	info['stepsCompletedPdf1Test1'] = Study.getStepsCompletedPdf1Test1()
 	info['show_header_footer'] = False
+	info['averageTimePerTask'] = Study.getAverageTimePerTask()
+	deltas = Study.getDeltas()
+	info['pdfDelta'] = deltas[0]
+	info['vPubDelta'] = deltas[1]
+	info['completedAll'] = Study.getCompletedAll()
+	completedTest1 = Study.getTest1Completed()
+	info['pdfTest1Completed'] = completedTest1[0]
+	info['vPubTest1Completed'] = completedTest1[1]
+	info['davidVrobin'] = Study.davidVrobin()
+	info['pdfEaseOfUse'] = Study.getPdfEaseOfUse()
+	info['vPubEaseOfUse'] = Study.getVpubEaseOfUse()
+
+
 	return info
 
 @route('/')

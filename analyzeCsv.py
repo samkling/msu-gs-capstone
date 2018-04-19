@@ -7,7 +7,7 @@ class Data:
 	def __init__(self):
 		self.study = Study()
 
-		with open('results.csv', 'rt') as csvfile:
+		with open('resultsSec.csv', 'rt') as csvfile:
 		     reader = csv.reader(csvfile)
 		     for row in reader:
 		     	self.study.addParticipant(row)
