@@ -47,17 +47,6 @@ end
 
 
       <div class="row">
-        <div class="col-lg-4">
-          <!-- Example Pie Chart Card-->
-          <div class="card mb-3">
-            <div class="card-header">
-              <i class="fa fa-pie-chart"></i> Robin VS. David Time Per Task vPub</div>
-            <div class="card-body">
-              <canvas id="robinVdavid" width="100%" height="100"></canvas>
-            </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-          </div>
-        </div>
         <div class="col-lg-8">
           <!-- Example Bar Chart Card-->
           <div class="card mb-3">
@@ -76,6 +65,17 @@ end
                   <div class="small text-muted">Participants Completed vPub Test 1 for both texts</div>
                 </div>
               </div>
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <!-- Example Pie Chart Card-->
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fa fa-pie-chart"></i> Robin VS. David Time Per Task vPub</div>
+            <div class="card-body">
+              <canvas id="robinVdavid" width="100%" height="100"></canvas>
             </div>
             <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
           </div>
