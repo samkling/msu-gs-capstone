@@ -23,6 +23,9 @@ def getInfo():
 	info['davidVrobin'] = Study.davidVrobin()
 	info['pdfEaseOfUse'] = Study.getPdfEaseOfUse()
 	info['vPubEaseOfUse'] = Study.getVpubEaseOfUse()
+	info['averageTaskCompletedPdf'] = Study.getAverageTaskCompletedPdf()
+	info['averageTaskCompletedVPub'] = Study.getAverageTaskCompletedVPub()
+	info['vPubTimeTest1'] = Study.getCompletedTimeVPub()
 
 
 	return info

@@ -37,8 +37,8 @@ window.onload = function () {
 	buildPieChart(chartLabels,chartData,"androidOsPieChart");
 
 	var aList = parseStringToArray("{{davidVrobin}}");
-	var chartLabels = [" David", " Robin"];
-	var chartData = aList;
+	var chartLabels = [" vPub", " PDF"];
+	var chartData = [18,2];
 	buildPieChart(chartLabels,chartData,"robinVdavid");
 
 	//alert("{{stepsCompletedPdf1Test1}}");
@@ -82,7 +82,11 @@ window.onload = function () {
 	        },
 	        ticks: {
 	          maxTicksLimit: 6
-	        }
+	        },
+	        scaleLabel: {
+		        display: true,
+		        labelString: 'Textbook'
+		    }
 	      }],
 	      yAxes: [{
 	        ticks: {
@@ -92,7 +96,11 @@ window.onload = function () {
 	        },
 	        gridLines: {
 	          display: true
-	        }
+	        },
+	        scaleLabel: {
+		        display: true,
+		        labelString: 'Average Time (Seconds)'
+		    }
 	      }],
 	    },
 	    legend: {
@@ -142,7 +150,11 @@ window.onload = function () {
 	        },
 	        ticks: {
 	          maxTicksLimit: 6
-	        }
+	        },
+	        scaleLabel: {
+		        display: true,
+		        labelString: 'Textbook'
+		    }
 	      }],
 	      yAxes: [{
 	        ticks: {
@@ -152,7 +164,11 @@ window.onload = function () {
 	        },
 	        gridLines: {
 	          display: true
-	        }
+	        },
+	        scaleLabel: {
+		        display: true,
+		        labelString: 'Average Time (Seconds)'
+		    }
 	      }],
 	    },
 	    legend: {
@@ -222,7 +238,11 @@ window.onload = function () {
 	        },
 	        ticks: {
 	          maxTicksLimit: 6
-	        }
+	        },
+	        scaleLabel: {
+		        display: true,
+		        labelString: 'Rating 1 to 5 (1-Hard; 5-Easy)'
+		    }
 	      }],
 	      yAxes: [{
 	        ticks: {
@@ -232,7 +252,11 @@ window.onload = function () {
 	        },
 	        gridLines: {
 	          display: true
-	        }
+	        },
+	        scaleLabel: {
+		        display: true,
+		        labelString: 'Count'
+		    }
 	      }],
 	    },
 	    legend: {
@@ -240,6 +264,140 @@ window.onload = function () {
 	    }
 	  }
 	});
+
+
+	//Create scatter plot
+
+	/// Pdf Ease of use
+	var that = this;
+	var tasksCompletedPdf = "{{averageTaskCompletedPdf}}";
+	var tasksCompletedVPub = "{{averageTaskCompletedVPub}}";
+	var totalTimeVPub = "{{vPubTimeTest1}}";
+
+	//alert();
+	var pdfList = parseStringToArray(tasksCompletedPdf);
+	var vPubList = parseStringToArray(tasksCompletedVPub);
+	var vPubTimeList = parseStringToArray(totalTimeVPub);
+	//alert(aList[0]);
+	console.log(vPubList.length)
+
+	var i;
+	var valsPDF = [];
+	var valsVpub = [];
+	var timeValsVPub = [];
+	var timeValsPDF = [];
+	for (i = 0; i < vPubList.length; i++){
+		valsPDF[i] = parseInt(pdfList[i],10);
+		valsVpub[i] = parseInt(vPubList[i],10);
+		timeValsVPub[i] = parseInt(vPubTimeList[i],10);
+		timeValsPDF[i] = 360;
+	}
+
+	var xLabels = ['0','1','2','3','4','5','6','7','8'];
+	var yVPub = [0,0,0,0,0,0,0,0,0];
+	var yPdf = [0,0,0,0,0,0,0,0,0];
+	for (i = 0; i < 30; i++){
+		//if val
+		yPdf[valsPDF[i]] = yPdf[valsPDF[i]] + 1;
+		yVPub[valsVpub[i]] = yVPub[valsVpub[i]] + 1;
+	}
+	//alert(valsVpub);
+		// -- Bar Chart Example
+	var ctx = document.getElementById("tasksCompleted");
+	var myLineChart = new Chart(ctx, {
+	  type: 'bar',
+	  data: {
+	    labels: xLabels,
+	    datasets: [{
+	      label: "PDF",
+	      backgroundColor: gadgetColorGrey,
+	      borderColor: "rgba(2,117,216,1)",
+	      data: yPdf
+	  	},{
+	      label: "vPub",
+	      backgroundColor: gadgetColorGreen,
+	      borderColor: "rgba(2,117,216,1)",
+	      data: yVPub,
+	    }],
+	  },
+	  options: {
+	    scales: {
+	      xAxes: [{
+	        time: {
+	          unit: 'amount'
+	        },
+	        gridLines: {
+	          display: false
+	        },
+	        ticks: {
+	          maxTicksLimit: 6
+	        },
+	        scaleLabel: {
+		        display: true,
+		        labelString: 'Tasks Completed'
+		    }
+	      }],
+	      yAxes: [{
+	        ticks: {
+	          min: 0,
+	          max: that.yMax,
+	          maxTicksLimit: (that.yMax)/2
+	        },
+	        gridLines: {
+	          display: true
+	        },
+	        scaleLabel: {
+		        display: true,
+		        labelString: 'Count'
+		    }
+	      }],
+	    },
+	    legend: {
+	      display: true
+	    }
+	  }
+	});
+
+
+
+
+
+	// var xtimeList = [0,60,120,180,240,300,360];
+	// var taskData = []
+
+	// for (i = 0; i < valsPDF.length; i++){
+	// 	taskData = {
+	// 		x: valsPDF[i],
+	// 		y: timeValsPDF[i]
+	// 	}
+	// }
+
+	// var scatterChart = new Chart(ctx, {
+	//     type: 'scatter',
+	//     data: {
+	//         datasets: [{
+	//             label: 'Scatter Dataset',
+	//             data: [{
+	//                 x: -10,
+	//                 y: 0
+	//             }, {
+	//                 x: 0,
+	//                 y: 10
+	//             }, {
+	//                 x: 10,
+	//                 y: 5
+	//             }]
+	//         }]
+	//     },
+	//     options: {
+	//         scales: {
+	//             xAxes: [{
+	//                 type: 'linear',
+	//                 position: 'bottom'
+	//             }]
+	//         }
+	//     }
+	// });
 
 
 	/// vPub Ease of use

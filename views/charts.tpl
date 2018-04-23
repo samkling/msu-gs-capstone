@@ -70,7 +70,7 @@ end
           <!-- Example Pie Chart Card-->
           <div class="card mb-3">
             <div class="card-header">
-              <i class="fa fa-pie-chart"></i> Robin VS. David Time Per Task vPub</div>
+              <i class="fa fa-pie-chart"></i> Completed All Task Per Technology</div>
             <div class="card-body">
               <canvas id="robinVdavid" width="100%" height="100"></canvas>
             </div>
@@ -80,7 +80,7 @@ end
 
 
       <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-6">
           <!-- Example Bar Chart Card-->
           <div class="card mb-3">
             <div class="card-header">
@@ -90,7 +90,16 @@ end
             </div>
           </div>
         </div>
-
+        <div class="col-lg-6">
+          <!-- Example Bar Chart Card-->
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fa fa-bar-chart"></i> Tasks Completed By Particiant In Allotted Time</div>
+            <div class="card-body">
+              <canvas id="tasksCompleted" width="100" height="50"></canvas>
+            </div>
+          </div>
+        </div>
       </div>
 
 

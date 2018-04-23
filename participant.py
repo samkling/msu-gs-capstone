@@ -255,6 +255,36 @@ class Study:
         print("ret",timeForTest)
         return retAvg
 
+    def getAverageTaskCompletedPdf(self):
+        retAvg = []
+        for p in self.participants:
+            num = p.getPdf1Test1Completed() + p.getPdf2Test1Completed()
+            #num = (p.getStepsCompletedPdf1Test1() + p.getStepsCompletedPdf2Test1()) / 8
+            retAvg.append(num)
+        print(retAvg)
+        return retAvg
+
+
+
+    def getAverageTaskCompletedVPub(self):
+        retAvg = []
+        for p in self.participants:
+            num = (p.getVPub1Completed() + p.getVPub2Completed())
+            #num = (p.getVPub1Completed() + p.getVPub2Completed()) / 8
+            retAvg.append(num)
+        print(retAvg)
+        return retAvg
+
+
+    def getCompletedTimeVPub(self):
+        retTime = []
+        for p in self.participants:
+            num = p.getVPub2Time() + p.getVPub1Time()
+            retTime.append(num)
+        return retTime
+
+
+
 
 
 
