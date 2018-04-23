@@ -176,13 +176,15 @@ class Study:
         timeForTest = [0,0,0,0]
         retAvg = [0,0,0,0] 
 
+
+
         for p in self.participants:
-            timeForTest[0] += p.getPdf1Test1Time()
-            timeForTest[1] += p.getPdf2Test1Time()
+            timeForTest[1] += p.getPdf1Test1Time()
+            timeForTest[0] += p.getPdf2Test1Time()
             timeForTest[2] += p.getVPub1Time()
             timeForTest[3] += p.getVPub2Time()
-            tasksCompleted[0] += p.getPdf1Test1Completed()
-            tasksCompleted[1] += p.getPdf2Test1Completed()
+            tasksCompleted[1] += p.getPdf1Test1Completed()
+            tasksCompleted[0] += p.getPdf2Test1Completed()
             tasksCompleted[2] += p.getVPub1Completed()
             tasksCompleted[3] += p.getVPub2Completed()
         
@@ -190,8 +192,9 @@ class Study:
             if tasksCompleted[i] > 0:
                 retAvg[i] = timeForTest[i] // tasksCompleted[i]
         #print("retAverage",retAvg)
-        self.pdfDelta = retAvg[1]-retAvg[0]
-        self.vPubDelta = retAvg[2]-retAvg[3]
+        if self.pdfDelta == 0 and self.vPubDelta == 0:
+            self.pdfDelta = retAvg[0]-retAvg[1]
+            self.vPubDelta = retAvg[2]-retAvg[3]
 
         return retAvg
 
@@ -206,22 +209,28 @@ class Study:
         tasksCompleted = [0,0,0,0]
         timeForTest = [0,0,0,0]
         retAvg = [0,0,0,0] 
+        check = True
+
+        if self.vPubCompletedTest1 > 0:
+            check = False 
 
         for p in self.participants:
             if p.getPdf1Test1Completed() == 4:
-                timeForTest[0] += p.getPdf1Test1Time()
-                tasksCompleted[0] += p.getPdf1Test1Completed()
-                self.pdfCompletedTest1 += 1
+                timeForTest[1] += p.getPdf1Test1Time()
+                tasksCompleted[1] += p.getPdf1Test1Completed()
+                if check == True:
+                    self.pdfCompletedTest1 += 1
             if p.getPdf2Test1Completed() == 4:
-                timeForTest[1] += p.getPdf2Test1Time()
-                tasksCompleted[1] += p.getPdf2Test1Completed()
+                timeForTest[0] += p.getPdf2Test1Time()
+                tasksCompleted[0] += p.getPdf2Test1Completed()
             if p.getVPub1Completed() == 4:
                 timeForTest[2] += p.getVPub1Time()
                 tasksCompleted[2] += p.getVPub1Completed()
             if p.getVPub2Completed() == 4:
                 timeForTest[3] += p.getVPub2Time()
                 tasksCompleted[3] += p.getVPub2Completed()
-                self.vPubCompletedTest1 += 1
+                if check == True:
+                    self.vPubCompletedTest1 += 1
         for i in range(4):
             if tasksCompleted[i] > 0:
                 retAvg[i] = timeForTest[i] // tasksCompleted[i]

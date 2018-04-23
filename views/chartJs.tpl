@@ -7,9 +7,10 @@ function buildPieChart(chartLabels,chartData,id) {
 	  type: 'doughnut',
 	  data: {
 	    labels: chartLabels,
+	    color: '#56BE99',
 	    datasets: [{
 	      data: chartData,
-	      backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
+	      backgroundColor: ['#56BF9A', '#818285'],
 	    }],
 	  },
 	});
@@ -26,6 +27,8 @@ function parseStringToArray(pStr) {
 }
 	
 window.onload = function () {
+	var gadgetColorGreen = "#56BF9A";
+	var gadgetColorGrey = "#818285";
 
 	var android = parseInt("{{androidUsers}}",10);
 	var iOS = 30 - android;
@@ -51,7 +54,7 @@ window.onload = function () {
 		vals[i] = parseInt(aList[i],10);
 	}
 	
-	var avgLabels = ["PDF HITM","PDF USH", "vPub USH", "vPub HITM"];
+	var avgLabels = ["PDF USH", "PDF HITM", "vPub USH", "vPub HITM"];
 
 	var yMax = Math.max(vals);
 
@@ -63,7 +66,7 @@ window.onload = function () {
 	    labels: avgLabels,
 	    datasets: [{
 	      label: "Seconds",
-	      backgroundColor: "rgba(2,117,216,1)",
+	      backgroundColor: gadgetColorGreen,
 	      borderColor: "rgba(2,117,216,1)",
 	      data: vals,
 	    }],
@@ -123,7 +126,7 @@ window.onload = function () {
 	    labels: avgLabels,
 	    datasets: [{
 	      label: "Seconds",
-	      backgroundColor: "rgba(2,117,216,1)",
+	      backgroundColor: gadgetColorGreen,
 	      borderColor: "rgba(2,117,216,1)",
 	      data: vals,
 	    }],
@@ -173,10 +176,22 @@ window.onload = function () {
 	for (i = 0; i < aList.length; i++){
 		vals[i] = parseInt(aList[i],10);
 	}
+
+	var bStr = "{{vPubEaseOfUse}}";
+	//alert();
+	var bList = parseStringToArray(bStr);
+	//alert(aList[0]);
+
+	var i;
+	var valsVpub = [];
+	for (i = 0; i < bList.length; i++){
+		valsVpub[i] = parseInt(bList[i],10);
+	}
 	
 	var avgLabels = ["1","2", "3", "4", "5"];
-
-	var yMax = Math.max(vals);
+	var pdfMax = Math.max(vals);
+	var vpubMax = Math.max(valsVpub);
+	var yMax = Math.max(pdfMax,vpubMax);
 	
 	// -- Bar Chart Example
 	var ctx = document.getElementById("pdfEasy");
@@ -185,10 +200,15 @@ window.onload = function () {
 	  data: {
 	    labels: avgLabels,
 	    datasets: [{
-	      label: "Count",
-	      backgroundColor: "rgba(2,117,216,1)",
+	      label: "PDF",
+	      backgroundColor: gadgetColorGrey,
 	      borderColor: "rgba(2,117,216,1)",
-	      data: vals,
+	      data: vals
+	  	},{
+	      label: "vPub",
+	      backgroundColor: gadgetColorGreen,
+	      borderColor: "rgba(2,117,216,1)",
+	      data: valsVpub,
 	    }],
 	  },
 	  options: {
@@ -216,71 +236,71 @@ window.onload = function () {
 	      }],
 	    },
 	    legend: {
-	      display: false
+	      display: true
 	    }
 	  }
 	});
 
 
 	/// vPub Ease of use
-	var that = this;
-	var aStr = "{{vPubEaseOfUse}}";
-	//alert();
-	var aList = parseStringToArray(aStr);
-	//alert(aList[0]);
+	// var that = this;
+	// var aStr = "{{vPubEaseOfUse}}";
+	// //alert();
+	// var aList = parseStringToArray(aStr);
+	// //alert(aList[0]);
 
-	var i;
-	var vals = [];
-	for (i = 0; i < aList.length; i++){
-		vals[i] = parseInt(aList[i],10);
-	}
+	// var i;
+	// var vals = [];
+	// for (i = 0; i < aList.length; i++){
+	// 	vals[i] = parseInt(aList[i],10);
+	// }
 	
-	var avgLabels = ["1","2", "3", "4", "5"];
+	// var avgLabels = ["1","2", "3", "4", "5"];
 
-	var yMax = Math.max(vals);
+	// var yMax = Math.max(vals);
 	
 	// -- Bar Chart Example
-	var ctx = document.getElementById("vPubEasy");
-	var myLineChart = new Chart(ctx, {
-	  type: 'bar',
-	  data: {
-	    labels: avgLabels,
-	    datasets: [{
-	      label: "Count",
-	      backgroundColor: "rgba(2,117,216,1)",
-	      borderColor: "rgba(2,117,216,1)",
-	      data: vals,
-	    }],
-	  },
-	  options: {
-	    scales: {
-	      xAxes: [{
-	        time: {
-	          unit: 'amount'
-	        },
-	        gridLines: {
-	          display: false
-	        },
-	        ticks: {
-	          maxTicksLimit: 6
-	        }
-	      }],
-	      yAxes: [{
-	        ticks: {
-	          min: 0,
-	          max: that.yMax,
-	          maxTicksLimit: (that.yMax)/2
-	        },
-	        gridLines: {
-	          display: true
-	        }
-	      }],
-	    },
-	    legend: {
-	      display: false
-	    }
-	  }
-	});
+	// var ctx = document.getElementById("vPubEasy");
+	// var myLineChart = new Chart(ctx, {
+	//   type: 'bar',
+	//   data: {
+	//     labels: avgLabels,
+	//     datasets: [{
+	//       label: "Count",
+	//       backgroundColor: gadgetColorGreen,
+	//       borderColor: "rgba(2,117,216,1)",
+	//       data: vals,
+	//     }],
+	//   },
+	//   options: {
+	//     scales: {
+	//       xAxes: [{
+	//         time: {
+	//           unit: 'amount'
+	//         },
+	//         gridLines: {
+	//           display: false
+	//         },
+	//         ticks: {
+	//           maxTicksLimit: 6
+	//         }
+	//       }],
+	//       yAxes: [{
+	//         ticks: {
+	//           min: 0,
+	//           max: that.yMax,
+	//           maxTicksLimit: (that.yMax)/2
+	//         },
+	//         gridLines: {
+	//           display: true
+	//         }
+	//       }],
+	//     },
+	//     legend: {
+	//       display: false
+	//     }
+	//   }
+	// });
 
 }
 
